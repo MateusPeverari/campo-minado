@@ -126,4 +126,57 @@ public class CampoTeste {
 
         assertTrue(campo22.isAberto() && campo11.isFechado());
     }
+
+    @Test
+    void testeReiniciar() {
+        campo.reiniciar();
+        assertFalse(campo.isAberto() && campo.isMarcado() && campo.isAberto());
+    }
+
+    @Test
+    void testeSetAberto() {
+        campo.setAberto(true);
+        boolean resultado = campo.isAberto();
+        assertTrue(resultado);
+    }
+
+    @Test
+    void testeGetLinha() {
+        boolean resultado = campo.getLinha() == 3;
+        assertTrue(resultado);
+    }
+
+    @Test
+    void testeGetColuna() {
+        boolean resultado = campo.getColuna() == 3;
+        assertTrue(resultado);
+    }
+
+    @Test
+    void testeObjetivoAlcancadoMinado() {
+        campo.minar();
+        campo.alternarMarcacao();
+        boolean resultado = campo.objetivoAlcancado();
+        assertTrue(resultado);
+    }
+
+    @Test
+    void testeObjetivoAlcancadoNaoMinado() {
+        campo.abrir();
+        boolean resultado = campo.objetivoAlcancado();
+        assertTrue(resultado);
+    }
+
+    @Test
+    void testeMinasNaVizinhaca() {
+        Campo campo32 = new Campo(3, 4);
+        Campo campo43 = new Campo(4, 3);
+        campo32.minar();
+        campo.adicionarVizinho(campo32);
+        campo.adicionarVizinho(campo43);
+
+        int minas = (int) campo.minasNaVizinhanca();
+        boolean resultado = minas == 1;
+        assertTrue(resultado);
+    }
 }
